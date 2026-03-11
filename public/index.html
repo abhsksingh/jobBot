@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobBot — Automated Job Application Bot</title>
+  <meta name="description" content="Automated Job Application Bot: search, filter, apply, track, and generate reports for your job hunt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <nav id="sidebar" class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+      </div>
+      <span class="brand-text">JobBot</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" data-page="dashboard" id="nav-dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </a></li>
+      <li><a href="#" class="nav-link" data-page="jobs" id="nav-jobs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        <span>Job Search</span>
+      </a></li>
+      <li><a href="#" class="nav-link" data-page="applications" id="nav-applications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        <span>Applications</span>
+      </a></li>
+      <li><a href="#" class="nav-link" data-page="preferences" id="nav-preferences">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        <span>Preferences</span>
+      </a></li>
+      <li><a href="#" class="nav-link" data-page="reports" id="nav-reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>Reports</span>
+      </a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="connection-status">
+        <span class="status-dot"></span>
+        <span>System Online</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content" class="main-content">
+
+    <!-- ═══════════════ DASHBOARD ═══════════════ -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle">Your job application overview at a glance</p>
+        </div>
+        <button class="btn btn-primary btn-glow" id="btn-auto-apply">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+          Auto-Apply
+        </button>
+      </div>
+
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card" id="stat-total-apps">
+          <div class="stat-icon stat-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" id="stat-total-num">0</span>
+            <span class="stat-label">Total Applications</span>
+          </div>
+        </div>
+        <div class="stat-card" id="stat-interviews">
+          <div class="stat-icon stat-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" id="stat-interviews-num">0</span>
+            <span class="stat-label">Interviews</span>
+          </div>
+        </div>
+        <div class="stat-card" id="stat-offers">
+          <div class="stat-icon stat-icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" id="stat-offers-num">0</span>
+            <span class="stat-label">Offers</span>
+          </div>
+        </div>
+        <div class="stat-card" id="stat-response-rate">
+          <div class="stat-icon stat-icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number" id="stat-rate-num">0%</span>
+            <span class="stat-label">Response Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card" id="card-funnel">
+          <div class="card-header">
+            <h2>Application Funnel</h2>
+          </div>
+          <div class="card-body">
+            <div class="funnel-chart" id="funnel-chart"></div>
+          </div>
+        </div>
+        <div class="card" id="card-recent">
+          <div class="card-header">
+            <h2>Recent Applications</h2>
+            <a href="#" class="link-subtle" data-page="applications" id="view-all-apps">View All →</a>
+          </div>
+          <div class="card-body">
+            <div class="recent-list" id="recent-applications"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ JOB SEARCH ═══════════════ -->
+    <section id="page-jobs" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Job Search</h1>
+          <p class="page-subtitle">Find and apply to matching opportunities</p>
+        </div>
+        <div class="search-stats">
+          <span id="jobs-result-count">0</span> jobs found
+        </div>
+      </div>
+
+      <div class="search-bar" id="search-bar">
+        <div class="search-input-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="search-keyword" placeholder="Search jobs by title, company, or keyword..." />
+        </div>
+        <div class="search-filters">
+          <select id="filter-location">
+            <option value="">All Locations</option>
+            <option value="Remote">Remote</option>
+            <option value="San Francisco">San Francisco, CA</option>
+            <option value="New York">New York, NY</option>
+            <option value="Austin">Austin, TX</option>
+            <option value="Seattle">Seattle, WA</option>
+            <option value="Chicago">Chicago, IL</option>
+            <option value="Denver">Denver, CO</option>
+            <option value="Los Angeles">Los Angeles, CA</option>
+            <option value="Portland">Portland, OR</option>
+            <option value="Washington">Washington, DC</option>
+            <option value="San Jose">San Jose, CA</option>
+          </select>
+          <select id="filter-type">
+            <option value="">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+          <input type="number" id="filter-salary-min" placeholder="Min Salary" />
+          <input type="number" id="filter-salary-max" placeholder="Max Salary" />
+          <button class="btn btn-secondary" id="btn-search-jobs">Search</button>
+          <button class="btn btn-ghost" id="btn-clear-filters">Clear</button>
+        </div>
+      </div>
+
+      <div class="jobs-grid" id="jobs-grid"></div>
+    </section>
+
+    <!-- ═══════════════ APPLICATIONS ═══════════════ -->
+    <section id="page-applications" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Application Tracker</h1>
+          <p class="page-subtitle">Monitor all your job applications</p>
+        </div>
+        <div class="filter-tabs" id="app-filter-tabs">
+          <button class="tab active" data-status="">All</button>
+          <button class="tab" data-status="Applied">Applied</button>
+          <button class="tab" data-status="Screening">Screening</button>
+          <button class="tab" data-status="Interview">Interview</button>
+          <button class="tab" data-status="Offer">Offer</button>
+          <button class="tab" data-status="Rejected">Rejected</button>
+        </div>
+      </div>
+
+      <div class="applications-table-wrapper">
+        <table class="applications-table" id="applications-table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Company</th>
+              <th>Location</th>
+              <th>Salary Range</th>
+              <th>Status</th>
+              <th>Applied Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="applications-tbody"></tbody>
+        </table>
+        <div class="empty-state" id="applications-empty" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <h3>No applications yet</h3>
+          <p>Start by searching for jobs and submitting applications</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PREFERENCES ═══════════════ -->
+    <section id="page-preferences" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Preferences</h1>
+          <p class="page-subtitle">Configure your job search criteria for auto-apply</p>
+        </div>
+      </div>
+
+      <form id="preferences-form" class="preferences-form">
+        <div class="form-grid">
+          <div class="card form-card">
+            <div class="card-header"><h2>Desired Roles</h2></div>
+            <div class="card-body">
+              <div class="tag-input-wrapper" id="roles-wrapper">
+                <div class="tags-container" id="roles-tags"></div>
+                <input type="text" id="role-input" placeholder="Type a role and press Enter..." />
+              </div>
+            </div>
+          </div>
+
+          <div class="card form-card">
+            <div class="card-header"><h2>Preferred Locations</h2></div>
+            <div class="card-body">
+              <div class="tag-input-wrapper" id="locations-wrapper">
+                <div class="tags-container" id="locations-tags"></div>
+                <input type="text" id="location-input" placeholder="Type a location and press Enter..." />
+              </div>
+            </div>
+          </div>
+
+          <div class="card form-card">
+            <div class="card-header"><h2>Key Skills</h2></div>
+            <div class="card-body">
+              <div class="tag-input-wrapper" id="skills-wrapper">
+                <div class="tags-container" id="skills-tags"></div>
+                <input type="text" id="skill-input" placeholder="Type a skill and press Enter..." />
+              </div>
+            </div>
+          </div>
+
+          <div class="card form-card">
+            <div class="card-header"><h2>Salary Range</h2></div>
+            <div class="card-body">
+              <div class="salary-inputs">
+                <div class="form-field">
+                  <label for="pref-salary-min">Minimum ($)</label>
+                  <input type="number" id="pref-salary-min" value="80000" />
+                </div>
+                <div class="form-field">
+                  <label for="pref-salary-max">Maximum ($)</label>
+                  <input type="number" id="pref-salary-max" value="200000" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card form-card">
+            <div class="card-header"><h2>Job Types</h2></div>
+            <div class="card-body">
+              <div class="checkbox-group" id="job-types-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Full-time" checked /> Full-time
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Contract" /> Contract
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Internship" /> Internship
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-glow">Save Preferences</button>
+          <button type="button" class="btn btn-secondary btn-glow" id="btn-auto-apply-pref">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>
+            Save &amp; Auto-Apply
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ═══════════════ REPORTS ═══════════════ -->
+    <section id="page-reports" class="page">
+      <div class="page-header">
+        <div>
+          <h1>Reports</h1>
+          <p class="page-subtitle">Analytics and insights about your job search</p>
+        </div>
+        <button class="btn btn-secondary" id="btn-export-csv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+
+      <div class="reports-grid">
+        <div class="card" id="card-status-chart">
+          <div class="card-header"><h2>Status Distribution</h2></div>
+          <div class="card-body">
+            <div class="chart-container" id="status-chart"></div>
+          </div>
+        </div>
+        <div class="card" id="card-top-companies">
+          <div class="card-header"><h2>Top Companies</h2></div>
+          <div class="card-body">
+            <div class="bar-chart" id="companies-chart"></div>
+          </div>
+        </div>
+        <div class="card" id="card-top-locations">
+          <div class="card-header"><h2>Top Locations</h2></div>
+          <div class="card-body">
+            <div class="bar-chart" id="locations-chart"></div>
+          </div>
+        </div>
+        <div class="card" id="card-avg-salary">
+          <div class="card-header"><h2>Application Summary</h2></div>
+          <div class="card-body">
+            <div class="summary-stats" id="summary-stats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Modal -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header" id="modal-header">
+        <h2 id="modal-title">Modal</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "automated-job-application-bot",
+  "version": "1.0.0",
+  "description": "Full-stack automation bot that searches for jobs, filters by preferences, submits applications, tracks them, and generates reports.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["job", "automation", "bot", "application-tracker"],
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "json2csv": "^5.0.7",
+    "uuid": "^9.0.0"
+  }
+}
