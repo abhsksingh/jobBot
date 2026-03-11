@@ -9,6 +9,8 @@
 
 A full-stack automation tool that helps you search for jobs, filter them based on your preferences, submit simulated applications, track their status, and generate insights. Built as an Express.js monolith with a stunning dark-mode glassmorphism dashboard.
 
+**👉 Live Demo:** [https://jobbot-c5al.onrender.com](https://jobbot-c5al.onrender.com)
+
 ![JobBot Dashboard Preview](https://github.com/abhsksingh/jobBot/blob/main/public/images/preview.png?raw=true)
 
 > **Note:** Job boards (LinkedIn, Indeed, etc.) strictly prohibit automated scraping/applying. This project uses a **simulated job search engine** backed by a realistic SQLite seed database for demonstration purposes. The architecture is designed so real API integrations can be plugged in later.
